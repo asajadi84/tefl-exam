@@ -1,0 +1,29 @@
+<%- include("inc/header", {pageTitle: "تغییر رمز عبور", adminLoggedIn: adminLoggedIn}); %>
+
+<section class="container-fluid">
+    <div class="container">
+        <h2 class="mt-4 mb-2">تغییر رمز عبور</h2>
+        <div class="card narrow-card-container">
+            <form action="/changepass" method="POST">
+                <div class="col-md mb-2">
+                    <div class="form-floating">
+                        <input type="password" class="form-control" id="password" name="password" placeholder="password" value="" required>
+                        <label for="password">رمز عبور جدید</label>
+                    </div>
+                </div>
+                <div class="col-md mb-2">
+                    <div class="form-floating">
+                        <input type="password" class="form-control" id="password2" name="password2" placeholder="password2" value="" required>
+                        <label for="password2">تکرار رمز عبور جدید</label>
+                    </div>
+                </div>
+
+                <button class="secondary-btn mt-1" type="submit">تغییر رمز</button>
+            </form>
+        </div>
+    </div>
+</section>
+
+<%- include("inc/footer") %>
+</body>
+</html>

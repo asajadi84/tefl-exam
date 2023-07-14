@@ -1,0 +1,166 @@
+@font-face {
+    font-family: Sahel FD;
+    src: url("../fonts/Sahel-FD.woff2");
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: Sahel FD;
+    src: url("../fonts/Sahel-Bold-FD.woff2");
+    font-weight: 700;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: Sahel;
+    src: url("../fonts/Sahel.woff2");
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+}
+
+:root {
+    --background: #f5f5f5;
+    --primary: #f2ead3;
+    --primary-dark: #dfd7bf;
+    --secondary: #3f2305;
+}
+
+body {
+    background-color: var(--background) !important;
+    font-family: Sahel FD !important;
+    font-size: 16px !important;
+    font-weight: 400 !important;
+}
+
+header {
+    background-color: var(--secondary);
+    color: white;
+    padding: 8px 0;
+}
+
+h1 {
+    font-size: 24px !important;
+    font-weight: 700 !important;
+    margin: 0 !important;
+}
+
+h2 {
+    font-size: 22px !important;
+    margin: 0 !important;
+}
+
+p {
+    margin: 0 !important;
+}
+
+.white-link {
+    color: white;
+    text-decoration: none;
+}
+
+.white-link:hover {
+    color: white;
+}
+
+.header-btn {
+    background-color: var(--primary);
+    padding: 4px 12px;
+    margin: 4px 0;
+    color: black;
+    text-decoration: none;
+    border-radius: 32px;
+    white-space: nowrap;
+}
+
+.header-btn:hover {
+    background-color: var(--primary-dark);
+    color: black;
+}
+
+.header-btn-container {
+    gap: 8px;
+}
+
+.card-container {
+    padding: 8px;
+}
+
+.narrow-card-container {
+    padding: 8px 20%;
+}
+
+.secondary-btn {
+    background-color: var(--secondary);
+    padding: 4px 12px;
+    margin: 4px 0;
+    color: white;
+    text-decoration: none;
+    border-radius: 32px;
+    white-space: nowrap;
+}
+
+.secondary-btn:hover {
+    background-color: black;
+    color: white;
+}
+
+.en-digits {
+    font-family: Sahel !important;
+}
+
+.image-container {
+    /* height: 1px; */
+}
+
+.image-container img {
+    width: 256px;
+    max-width: 100%;
+    margin: 0 auto;
+    display: block;
+}
+
+.link {
+    color: var(--secondary)
+}
+
+.link:hover {
+    color: black;
+}
+
+.question-box {
+    background-color: var(--primary);
+    padding: 8px;
+}
+
+.barchart-container {
+    height: 256px;
+}
+
+.ltr-in-rtl {
+    direction: ltr;
+    text-align: right;
+}
+
+.exam-description {
+    white-space: pre-wrap;
+}
+
+footer {
+    background-color: var(--primary-dark);
+    color: var(--secondary);
+    text-align: center;
+    font-size: 12px;
+    margin-top: 16px;
+}
+
+footer a {
+    color: var(--secondary);
+}
+
+footer a:hover {
+    color: black;
+}

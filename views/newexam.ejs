@@ -1,0 +1,151 @@
+<%- include("inc/header", {pageTitle: "آزمون جدید", adminLoggedIn: adminLoggedIn}); %>
+
+<section class="container-fluid">
+    <div class="container">
+
+        <form action="/newexam" method="POST" enctype="multipart/form-data">
+            <h2 class="mt-4 mb-2">آزمون جدید</h2>
+            <div class="card card-container">
+                <div class="row">
+                    <div class="col-md">
+                        <div class="form-floating">
+                            <input type="text" class="form-control" id="title" name="title" placeholder="title" value="" required>
+                            <label for="title">عنوان آزمون</label>
+                        </div>
+                    </div>
+                    <div class="col-md">
+                        <div class="form-floating">
+                            <input type="number" class="form-control" id="time" name="time" placeholder="time" value="" min="1" required>
+                            <label for="time">مهلت به دقیقه</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group mt-3">
+                    <textarea class="form-control" name="description" placeholder="توضیحات" rows="5" required></textarea>
+                </div>
+            </div>
+
+            <div id="question-container">
+                <h2 class="mt-4 mb-2">سوال 1</h2>
+                <div class="card card-container">
+                    <div class="row">
+                        <div class="col">
+                            <div class="form-floating">
+                                <input type="text" class="form-control" id="question_title_0" name="question[0][title]" placeholder="question_title_0" value="">
+                                <label for="question_title_0">عنوان سوال (اختیاری)</label>
+                            </div>
+                            
+                            <label class="form-label mt-4" for="question-pic-0">تصویر سوال (اختیاری)</label>
+                            <input type="file" class="form-control" id="question-pic-0" name="pic[0]" accept=".png,.jpg,.jpeg" onchange="document.getElementById('pic-holder-0').src = window.URL.createObjectURL(this.files[0])">
+
+                            <div class="form-floating mt-3">
+                                <input type="text" class="form-control" id="question_0_1" name="question[0][option1]" placeholder="question_0_1" value="" required>
+                                <label for="question_0_1">گزینه 1</label>
+                            </div>
+                            <div class="form-floating mt-3">
+                                <input type="text" class="form-control" id="question_0_2" name="question[0][option2]" placeholder="question_0_2" value="" required>
+                                <label for="question_0_2">گزینه 2</label>
+                            </div>
+                            <div class="form-floating mt-3">
+                                <input type="text" class="form-control" id="question_0_3" name="question[0][option3]" placeholder="question_0_3" value="" required>
+                                <label for="question_0_3">گزینه 3</label>
+                            </div>
+                            <div class="form-floating mt-3">
+                                <input type="text" class="form-control" id="question_0_4" name="question[0][option4]" placeholder="question_0_4" value="" required>
+                                <label for="question_0_4">گزینه 4</label>
+                            </div>
+
+                            <div class="input-group mt-3" style="height: 58px;">
+                                <label class="input-group-text" for="key-0">پاسخ صحیح</label>
+                                <select class="form-select" id="key-0" name="key[0]" required>
+                                    <option value="" selected>انتخاب کنید...</option>
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                </select>
+                            </div>
+
+                        </div>
+                        <div class="col">
+                            <img class="img-fluid" id="pic-holder-0">
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="d-flex align-items-center justify-content-between flex-wrap mt-4 mb-2">
+                <button class="secondary-btn" id="add-question">افزودن سوال</button>
+                <button class="secondary-btn" type="submit">ثبت و افزودن آزمون</button>
+            </div>
+            
+        </form>
+    </div>
+</section>
+
+<%- include("inc/footer") %>
+
+<script type="text/javascript">
+
+    var questionHolder = 1;
+
+    $(document).ready(function(){
+        $("#add-question").click(function(e){
+            e.preventDefault();
+            $("#question-container").append(`
+            <h2 class="mt-4 mb-2">سوال ${questionHolder + 1}</h2>
+            <div class="card card-container">
+                <div class="row">
+                    <div class="col">
+                        <div class="form-floating">
+                            <input type="text" class="form-control" id="question_title_${questionHolder}" name="question[${questionHolder}][title]" placeholder="question_title_${questionHolder}" value="">
+                            <label for="question_title_${questionHolder}">عنوان سوال (اختیاری)</label>
+                        </div>
+                        
+                        <label class="form-label mt-4" for="question-pic-${questionHolder}">تصویر سوال (اختیاری)</label>
+                        <input type="file" class="form-control" id="question-pic-${questionHolder}" name="pic[${questionHolder}]" accept=".png,.jpg,.jpeg" onchange="document.getElementById('pic-holder-${questionHolder}').src = window.URL.createObjectURL(this.files[0])">
+
+                        <div class="form-floating mt-3">
+                            <input type="text" class="form-control" id="question_${questionHolder}_1" name="question[${questionHolder}][option1]" placeholder="question_${questionHolder}_1" value="" required>
+                            <label for="question_${questionHolder}_1">گزینه 1</label>
+                        </div>
+                        <div class="form-floating mt-3">
+                            <input type="text" class="form-control" id="question_${questionHolder}_2" name="question[${questionHolder}][option2]" placeholder="question_${questionHolder}_2" value="" required>
+                            <label for="question_${questionHolder}_2">گزینه 2</label>
+                        </div>
+                        <div class="form-floating mt-3">
+                            <input type="text" class="form-control" id="question_${questionHolder}_3" name="question[${questionHolder}][option3]" placeholder="question_${questionHolder}_3" value="" required>
+                            <label for="question_${questionHolder}_3">گزینه 3</label>
+                        </div>
+                        <div class="form-floating mt-3">
+                            <input type="text" class="form-control" id="question_${questionHolder}_4" name="question[${questionHolder}][option4]" placeholder="question_${questionHolder}_4" value="" required>
+                            <label for="question_${questionHolder}_4">گزینه 4</label>
+                        </div>
+
+                        <div class="input-group mt-3" style="height: 58px;">
+                            <label class="input-group-text" for="key-${questionHolder}">پاسخ صحیح</label>
+                            <select class="form-select" id="key-${questionHolder}" name="key[${questionHolder}]" required>
+                                <option value="" selected>انتخاب کنید...</option>
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                            </select>
+                        </div>
+
+                    </div>
+                    <div class="col">
+                        <img class="img-fluid" id="pic-holder-${questionHolder}">
+                    </div>
+                </div>
+
+            </div>
+            `);
+            questionHolder++;
+        });
+    });
+</script>
+
+</body>
+</html>

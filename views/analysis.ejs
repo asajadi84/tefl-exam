@@ -1,0 +1,257 @@
+<%- include("inc/header", {pageTitle: "تحلیل آزمون " + foundExam.exam_title, adminLoggedIn: adminLoggedIn}); %>
+
+<section class="container-fluid">
+    <div class="container">
+        <h1 class="mt-4 mb-2">تحلیل آزمون <%= foundExam.exam_title %></h1>
+        <h2 class="mt-4 mb-2">مشخصات آزمون</h2>
+        <div class="card card-container">
+            <div class="table-responsive">
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>تعداد کل سوالات</th>
+                            <th>تعداد سوالات موثر</th>
+                            <th>تعداد کل شرکت‌کنندگان</th>
+                            <th>تعداد شرکت‌کنندگان موثر</th>
+                            <th>مهلت آزمون</th>
+                            <th>وضعیت</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><%= foundExam.exam_questions.length %></td>
+                            <td><%= consideredQs %></td>
+                            <td><%= examParticipants.length %></td>
+                            <td><%= consideredCount %></td>
+                            <td><%= foundExam.exam_time %> دقیقه</td>
+                            <td>
+                                <% if(foundExam.exam_active){ %>
+                                    <span class="badge bg-success">فعال</span>
+                                <% }else{ %>
+                                    <span class="badge bg-danger">غیرفعال</span>
+                                <% } %>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <h2 class="mt-4 mb-2">آمار آزمون (شرکت‌کنندگان موثر)</h2>
+        <div class="card card-container">
+            <% if(consideredCount < 1 || consideredQs<1){ %>
+                <p>این آزمون شرکت‌کننده یا سوال موثری ندارد.</p>
+            <% }else{ %>
+                <div class="table-responsive">
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th>میانگین پاسخگویی</th>
+                                <th>میانگین سن افراد</th>
+                                <th>بالاترین نمره</th>
+                                <th>پایین‌ترین نمره</th>
+                                <th>میانگین نمره</th>
+                                <th>واریانس</th>
+                                <th>KR-21</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><%= msInFarsi(timeMean) %></td>
+                                <td><%= ageMean %></td>
+                                <td><%= maxScore %></td>
+                                <td><%= minScore %></td>
+                                <td><%= meanScore %></td>
+                                <td><%= isNaN(variance) ? "تعریف نشده" : variance %></td>
+                                <td><%= isNaN(kr21rounded) ? "تعریف نشده" : kr21rounded %></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            <% } %>
+        </div>
+
+        <h1 class="mt-4 mb-2">تحلیل سوالات</h1>
+
+        <% for(let i = 0; i < foundExam.exam_questions.length; i++){ %>
+            <h2 class="mt-4 mb-2" id="question-<%= i %>">سوال <%= i+1 %></h2>
+            <div class="card card-container">
+
+                <div class="question-box">
+                    <div class="row">
+                        <div class="col">
+
+                            <% if(foundExam.exam_questions[i].exam_question_title){ %>
+                            <p class="mb-3 ltr-in-rtl"><%= foundExam.exam_questions[i].exam_question_title %></p>
+                            <% } %>
+
+                            <div>
+                                <ol>
+                                    <li>
+                                        <%= foundExam.exam_questions[i].exam_question_answer1 %>
+                                        <% if(foundExam.exam_key[i] == 1){ %>
+                                            <span class="badge bg-success">گزینه صحیح</span>
+                                        <% } %>
+                                    </li>
+                                    <li>
+                                        <%= foundExam.exam_questions[i].exam_question_answer2 %>
+                                        <% if(foundExam.exam_key[i] == 2){ %>
+                                            <span class="badge bg-success">گزینه صحیح</span>
+                                        <% } %>
+                                    </li>
+                                    <li>
+                                        <%= foundExam.exam_questions[i].exam_question_answer3 %>
+                                        <% if(foundExam.exam_key[i] == 3){ %>
+                                            <span class="badge bg-success">گزینه صحیح</span>
+                                        <% } %>
+                                    </li>
+                                    <li>
+                                        <%= foundExam.exam_questions[i].exam_question_answer4 %>
+                                        <% if(foundExam.exam_key[i] == 4){ %>
+                                            <span class="badge bg-success">گزینه صحیح</span>
+                                        <% } %>
+                                    </li>
+                                </ol>
+                            </div>
+                        </div>
+
+                        <% if(foundExam.exam_questions[i].exam_question_pic){ %>
+                            <div class="col">
+                                <div class="image-container">
+                                    <img src="pics/<%= foundExam.exam_questions[i].exam_question_pic %>">
+                                </div>
+                            </div>
+                        <% } %>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-8">
+                        <div class="table-responsive mt-3">
+                            <table class="table table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th>تعداد پاسخ صحیح موثر</th>
+                                        <th>تعداد کل پاسخ موثر</th>
+                                        <th>Item Facility</th>
+                                        <th>Difficulty</th>
+                                        <th>وضعیت</th>
+                                        <th>مدیریت</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><%= questionStatus[i].correct_considered_answers %></td>
+                                        <td><%= questionStatus[i].total_considered_answers %></td>
+                                        <td><%= questionStatus[i].item_facility %></td>
+                                        <td><%= questionStatus[i].difficulty %></td>
+                                        <td>
+                                            <% if(foundExam.exam_questions[i].exam_question_considered){ %>
+                                                <span class="badge bg-success">موثر</span>
+                                            <% }else{ %>
+                                                <span class="badge bg-danger">ناموثر</span>
+                                            <% } %>
+                                        </td>
+                                        <td>
+                                            <% if(foundExam.exam_questions[i].exam_question_considered){ %>
+                                                <a class="secondary-btn" href="/togglequestion?id=<%= foundExam.exam_id %>&no=<%= i %>">ناموثر کردن</a>
+                                            <% }else{ %>
+                                                <a class="secondary-btn" href="/togglequestion?id=<%= foundExam.exam_id %>&no=<%= i %>">موثر کردن</a>
+                                            <% } %>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="col-4">
+                        <div class="barchart-container" id="barchart-<%= i %>"></div>
+                    </div>
+                </div>
+            </div>
+        <% } %>
+
+        <h2 class="mt-4 mb-2" id="participants">شرکت‌کنندگان (<%= examParticipants.length %>)</h2>
+        <div class="card card-container">
+            <% if(!examParticipants.length){ %>
+                <p>این آزمون تا این لحظه شرکت‌کننده‌ای نداشته است.</p>
+            <% }else{ %>
+                <div class="table-responsive">
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th rowspan="2">ردیف</th>
+                                <th rowspan="2">نام و نام خانوادگی</th>
+                                <th rowspan="2">سن</th>
+                                <th colspan="3">تعداد پاسخ</th>
+                                <th rowspan="2">نمره از 100</th>
+                                <th rowspan="2">شروع آزمون</th>
+                                <th rowspan="2">پایان آزمون</th>
+                                <th rowspan="2">زمان پاسخگویی</th>
+                                <th rowspan="2">آی پی</th>
+                                <th rowspan="2">وضعیت</th>
+                                <th rowspan="2">مدیریت</th>
+                            </tr>
+                            <tr>
+                                <th>صحیح</th>
+                                <th>اشتباه</th>
+                                <th>نزده</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <% for(let i=0; i<examParticipants.length; i++){ %>
+                                <% let rowResult = examScoring(examParticipants[i].participant_answers, foundExam.exam_key, foundExam.exam_questions); %>
+                                <tr>
+                                    <td><%= i + 1 %></td>
+                                    <td>
+                                        <%= examParticipants[i].participant_first_name %> <%= examParticipants[i].participant_last_name %>
+                                        <br>
+                                        <span class="badge bg-secondary"><%= examParticipants[i].participant_id %></span>
+                                    </td>
+                                    <td><%= examParticipants[i].participant_age %></td>
+                                    <td><%= rowResult[0] %></td>
+                                    <td><%= rowResult[1] %></td>
+                                    <td><%= rowResult[2] %></td>
+                                    <td><%= rowResult[03] %></td>
+                                    <td><%= moment(examParticipants[i].participant_start_time).format("jYYYY/jM/jD HH:mm:ss") %></td>
+                                    <td><%= moment(examParticipants[i].participant_id).format("jYYYY/jM/jD HH:mm:ss") %></td>
+                                    <td><%= deltaTimeInFarsi(examParticipants[i].participant_id, examParticipants[i].participant_start_time) %></td>
+                                    <td><%= examParticipants[i].participant_ip %></td>
+                                    <td>
+                                        <% if(examParticipants[i].participant_considered){ %>
+                                            <span class="badge bg-success">موثر</span>
+                                        <% }else{ %>
+                                            <span class="badge bg-danger">ناموثر</span>
+                                        <% } %>
+                                    </td>
+                                    <td>
+                                        <% if(examParticipants[i].participant_considered){ %>
+                                            <a class="secondary-btn" href="/toggleparticipant?id=<%= examParticipants[i].participant_id %>">ناموثر کردن</a>
+                                        <% }else{ %>
+                                            <a class="secondary-btn" href="/toggleparticipant?id=<%= examParticipants[i].participant_id %>">موثر کردن</a>
+                                        <% } %>
+                                    </td>
+                                </tr>
+                            <% } %>
+                        </tbody>
+                    </table>
+                </div>
+            <% } %>
+        </div>
+    </div>
+</section>
+
+<%- include("inc/footer") %>
+
+<script src="js/plotly-2.24.1.min.js"></script>
+<script type="text/javascript">
+
+    var barChartData = <%- JSON.stringify(barChartData) %>;
+
+    <% for(let i = 0; i < foundExam.exam_questions.length; i++){ %>
+        Plotly.newPlot("barchart-<%= i %>", barChartData[<%= i %>]);
+    <% } %>
+
+</script>
+
+</body>
+</html>

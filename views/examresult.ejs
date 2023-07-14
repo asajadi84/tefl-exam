@@ -1,0 +1,47 @@
+<%- include("inc/header", {pageTitle: "نتیجه آزمون", adminLoggedIn: adminLoggedIn}); %>
+
+<section class="container-fluid">
+    <div class="container">
+        <h1 class="mt-4"><%= foundParticipant.participant_first_name %> عزیز</h1>
+        <div class="d-flex align-items-center justify-content-between flex-wrap mb-2">
+            <h2>از شرکت شما در این آزمون متشکریم</h2>
+            <p>شماره رهگیری: <%= foundParticipant.participant_id %></p>
+        </div>
+        <div class="card card-container">
+            <div class="table-responsive">
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th colspan="3">تعداد پاسخ</th>
+                            <th rowspan="2">نمره از 100</th>
+                            <th rowspan="2">شروع آزمون</th>
+                            <th rowspan="2">پایان آزمون</th>
+                            <th rowspan="2">زمان پاسخگویی</th>
+                        </tr>
+                        <tr>
+                            <th>صحیح</th>
+                            <th>اشتباه</th>
+                            <th>نزده</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <% let rowResult = examScoring(foundParticipant.participant_answers, examKey, examQuestions); %>
+                            <td><%= rowResult[0] %></td>
+                            <td><%= rowResult[1] %></td>
+                            <td><%= rowResult[2] %></td>
+                            <td><%= rowResult[3] %></td>
+                            <td><%= moment(foundParticipant.participant_start_time).format("jYYYY/jM/jD HH:mm:ss") %></td>
+                            <td><%= moment(foundParticipant.participant_id).format("jYYYY/jM/jD HH:mm:ss") %></td>
+                            <td><%= deltaTimeInFarsi(foundParticipant.participant_id, foundParticipant.participant_start_time) %></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</section>
+
+<%- include("inc/footer") %>
+</body>
+</html>

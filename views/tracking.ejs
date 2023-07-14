@@ -1,0 +1,23 @@
+<%- include("inc/header", {pageTitle: "رهگیری آزمون", adminLoggedIn: adminLoggedIn}); %>
+
+<section class="container-fluid">
+    <div class="container">
+        <h2 class="mt-4 mb-2">رهگیری آزمون</h2>
+        <div class="card narrow-card-container">
+            <form action="/tracking" method="POST">
+                <div class="col-md mb-2">
+                    <div class="form-floating">
+                        <input type="text" class="form-control" id="code" name="code" placeholder="code" value="" required>
+                        <label for="code">شماره رهگیری</label>
+                    </div>
+                </div>
+
+                <button class="secondary-btn mt-1" type="submit">رهگیری</button>
+            </form>
+        </div>
+    </div>
+</section>
+
+<%- include("inc/footer") %>
+</body>
+</html>

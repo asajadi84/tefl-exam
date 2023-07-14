@@ -1,0 +1,51 @@
+<%- include("inc/header", {pageTitle: "صفحه اصلی", adminLoggedIn: adminLoggedIn}); %>
+
+<section class="container-fluid">
+    <div class="container">
+        <div class="d-flex align-items-center justify-content-between flex-wrap mt-4 mb-2">
+            <h2>لیست آزمون‌های فعال در سامانه</h2>
+            <p><%- topCornerDate %></p>
+        </div>
+        <div class="card card-container">
+            <div class="row">
+                <div class="col-md-8">
+                    <% if(!activeExams.length){ %>
+                        <p>در حال حاضر آزمون فعالی وجود ندارد.</p>
+                    <% }else{ %>
+                        <div class="table-responsive">
+                            <table class="table table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th>ردیف</th>
+                                        <th>نام آزمون</th>
+                                        <th>مهلت آزمون</th>
+                                        <th>شرکت در آزمون</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <% for(let i=0; i<activeExams.length; i++){ %>
+                                    <tr>
+                                        <td><%= i+1 %></td>
+                                        <td><%= activeExams[i].exam_title %></td>
+                                        <td><%= activeExams[i].exam_time %> دقیقه</td>
+                                        <td>
+                                            <a class="secondary-btn" href="/take?id=<%= activeExams[i].exam_id %>">کلیک کنید</a>
+                                        </td>
+                                    </tr>
+                                    <% } %>
+                                </tbody>
+                            </table>
+                        </div>
+                    <% } %>
+                </div>
+                <div class="col-md-4">
+                    <img class="img-fluid" src="img/hero-image.svg" alt="hero image">
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<%- include("inc/footer") %>
+</body>
+</html>

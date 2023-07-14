@@ -1,0 +1,17 @@
+<%- include("inc/header", {pageTitle: messageTitle, adminLoggedIn: adminLoggedIn}); %>
+
+<section class="container-fluid">
+    <div class="container">
+        <h2 class="mt-4 mb-2"><%= messageTitle %></h2>
+        <div class="card card-container">
+            <p><%= messageDescription %></p>
+            <div class="mt-3 mb-2">
+                <a class="secondary-btn" href="/">بازگشت به صفحه اصلی</a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<%- include("inc/footer") %>
+</body>
+</html>

@@ -1,0 +1,74 @@
+<%- include("inc/header", {pageTitle: "پنل مدیر", adminLoggedIn: adminLoggedIn}); %>
+
+<section class="container-fluid">
+    <div class="container">
+        <div class="d-flex align-items-center justify-content-between flex-wrap mt-4 mb-2">
+            <h1>به پنل مدیریت سامانه خوش آمدید</h1>
+            <p>
+                <a class="link" href="/changepass">تغییر رمز عبور</a>
+                /
+                <a class="link" href="/logout">خروج</a>
+            </p>
+        </div>
+        <div class="d-flex align-items-center justify-content-between flex-wrap mt-4 mb-2">
+            <h2>آزمون‌ها</h2>
+            <a class="secondary-btn" href="/newexam">آزمون جدید</a>
+        </div>
+        <div class="card card-container">
+            <% if(!allExams.length){ %>
+                <p>در حال حاضر آزمونی وجود ندارد.</p>
+            <% }else{ %>
+                <div class="table-responsive">
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th>ردیف</th>
+                                <th>نام آزمون</th>
+                                <th>تعداد کل شرکت‌کنندگان</th>
+                                <th>تعداد شرکت‌کنندگان موثر</th>
+                                <th>وضعیت</th>
+                                <th>مشاهده</th>
+                                <th>تحلیل</th>
+                                <th>مدیریت</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <% for(let i=0; i<allExams.length; i++){ %>
+                            <tr>
+                                <td><%= i+1 %></td>
+                                <td><%= allExams[i].exam_title %></td>
+                                <td><%= consideredPs[allExams[i].exam_id] + unconsideredPs[allExams[i].exam_id] %></td>
+                                <td><%= consideredPs[allExams[i].exam_id] %></td>
+                                <td>
+                                    <% if(allExams[i].exam_active){ %>
+                                        <span class="badge bg-success">فعال</span>
+                                    <% }else{ %>
+                                        <span class="badge bg-danger">غیرفعال</span>
+                                    <% } %>
+                                </td>
+                                <td>
+                                    <a class="secondary-btn" href="/take?id=<%= allExams[i].exam_id %>">مشاهده آزمون</a>
+                                </td>
+                                <td>
+                                    <a class="secondary-btn" href="/analysis?id=<%= allExams[i].exam_id %>">تحلیل آزمون</a>
+                                </td>
+                                <td>
+                                    <% if(allExams[i].exam_active){ %>
+                                        <a class="secondary-btn" href="/toggle?id=<%= allExams[i].exam_id %>">غیرفعال کردن</a>
+                                    <% }else{ %>
+                                        <a class="secondary-btn" href="/toggle?id=<%= allExams[i].exam_id %>">فعال کردن</a>
+                                    <% } %>
+                                </td>
+                            </tr>
+                            <% } %>
+                        </tbody>
+                    </table>
+                </div>
+            <% } %>
+        </div>
+    </div>
+</section>
+
+<%- include("inc/footer") %>
+</body>
+</html>

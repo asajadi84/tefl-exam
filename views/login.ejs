@@ -1,0 +1,35 @@
+<%- include("inc/header", {pageTitle: "ورود مدیر", adminLoggedIn: adminLoggedIn}); %>
+
+<section class="container-fluid">
+    <div class="container">
+        <h2 class="mt-4 mb-2">ورود مدیر</h2>
+        <div class="card narrow-card-container">
+            <form action="/login" method="POST">
+                <div class="col-md mb-2">
+                    <div class="form-floating">
+                        <input type="text" class="form-control" id="username" name="username" placeholder="username" value="" required>
+                        <label for="username">نام کاربری</label>
+                    </div>
+                </div>
+                <div class="col-md mb-2">
+                    <div class="form-floating">
+                        <input type="password" class="form-control" id="password" name="password" placeholder="password" value="" required>
+                        <label for="password">رمز عبور</label>
+                    </div>
+                </div>
+
+                <% if(messages.error){ %>
+                <div class="alert alert-warning mt-3">
+                    <p><%= messages.error %></p>
+                </div>
+                <% } %>
+
+                <button class="secondary-btn mt-1" type="submit">ورود</button>
+            </form>
+        </div>
+    </div>
+</section>
+
+<%- include("inc/footer") %>
+</body>
+</html>
