@@ -46,24 +46,31 @@
                     <table class="table table-bordered">
                         <thead>
                             <tr>
-                                <th>میانگین پاسخگویی</th>
-                                <th>میانگین سن افراد</th>
-                                <th>بالاترین نمره</th>
-                                <th>پایین‌ترین نمره</th>
-                                <th>میانگین نمره</th>
-                                <th>واریانس</th>
-                                <th>KR-21</th>
+                                <th rowspan="2">میانگین پاسخگویی</th>
+                                <th rowspan="2">میانگین سن افراد</th>
+                                <th colspan="3">نمرات</th>
+                                <th rowspan="2">واریانس</th>
+                                <th rowspan="2">KR-21</th>
+                            </tr>
+                            <tr>
+                                <th>بالاترین</th>
+                                <th>پایین‌ترین</th>
+                                <th>میانگین</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr>
-                                <td><%= msInFarsi(timeMean) %></td>
-                                <td><%= ageMean %></td>
-                                <td><%= maxScore %></td>
-                                <td><%= minScore %></td>
-                                <td><%= meanScore %></td>
+                                <td rowspan="2"><%= msInFarsi(timeMean) %></td>
+                                <td rowspan="2"><%= ageMean %></td>
+                                <td rowspan="2"><%= maxScore %></td>
+                                <td rowspan="2"><%= minScore %></td>
+                                <td rowspan="2"><%= meanScore %></td>
                                 <td><%= isNaN(variance) ? "تعریف نشده" : variance %></td>
                                 <td><%= isNaN(kr21rounded) ? "تعریف نشده" : kr21rounded %></td>
+                            </tr>
+                            <tr>
+                                <td>\[s^2 = \dfrac{\sum_{i=1}^{n}(x_i - \overline{x})^2}{n - 1}\]</td>
+                                <td>\[(KR-21)r = \dfrac{n}{n - 1}  [1 - \dfrac{\overline{x}(n - \overline{x})}{ns^2}]\]</td>
                             </tr>
                         </tbody>
                     </table>
@@ -125,7 +132,7 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-8">
+                    <div class="col-md-8">
                         <div class="table-responsive mt-3">
                             <table class="table table-bordered">
                                 <thead>
@@ -163,7 +170,7 @@
                             </table>
                         </div>
                     </div>
-                    <div class="col-4">
+                    <div class="col-md-4">
                         <div class="barchart-container" id="barchart-<%= i %>"></div>
                     </div>
                 </div>
@@ -242,6 +249,7 @@
 
 <%- include("inc/footer") %>
 
+<script src="js/tex-mml-chtml.js"></script>
 <script src="js/plotly-2.24.1.min.js"></script>
 <script type="text/javascript">
 
