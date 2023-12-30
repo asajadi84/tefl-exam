@@ -12,11 +12,15 @@
 <body>
 
 <style>
+    body {
+        background-color: white !important; /*new*/
+    }
     table {
         width: 100%;
     }
     th, td {
         padding: 8px;
+        font-size: 2rem; /*new*/
     }
     .image-col {
         width: 30%;
@@ -43,7 +47,7 @@
                 <tr>
                     <td><%= foundExam.exam_questions.length %></td>
                     <td><%= foundExam.exam_time %> دقیقه</td>
-                    <td><%= foundExam.exam_description %></td>
+                    <td style="white-space: pre-wrap;"><%= foundExam.exam_description %></td><!--new pre-wrap-->
                 </tr>
             </tbody>
         </table>
