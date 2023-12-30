@@ -150,14 +150,14 @@ app.get("/take", function(req, res){
                 }else{
                     res.render("msg", {
                         adminLoggedIn: req.isAuthenticated(),
-                        messageTitle: "خطای در اجرای آزمون",
+                        messageTitle: "خطا در اجرای آزمون",
                         messageDescription: "این آزمون غیرفعال شده و در حال حاضر پاسخ جدید دریافت نمی‌کند."
                     });
                 }
             }else{
                 res.render("msg", {
                     adminLoggedIn: req.isAuthenticated(),
-                    messageTitle: "خطای در اجرای آزمون",
+                    messageTitle: "خطا در اجرای آزمون",
                     messageDescription: "آزمونی با این آی دی وجود ندارد."
                 });
             }
@@ -165,7 +165,7 @@ app.get("/take", function(req, res){
     }else{
         res.render("msg", {
             adminLoggedIn: req.isAuthenticated(),
-            messageTitle: "خطای در اجرای آزمون",
+            messageTitle: "خطا در اجرای آزمون",
             messageDescription: "وارد کردن پارامتر آی دی الزامی است."
         });
     }
@@ -198,7 +198,7 @@ app.post("/take", function(req, res){
             }else{
                 res.render("msg", {
                     adminLoggedIn: req.isAuthenticated(),
-                    messageTitle: "خطای در اجرای آزمون",
+                    messageTitle: "خطا در اجرای آزمون",
                     messageDescription: "آزمونی با این آی دی وجود ندارد."
                 });
             }
@@ -206,7 +206,39 @@ app.post("/take", function(req, res){
     }else{
         res.render("msg", {
             adminLoggedIn: req.isAuthenticated(),
-            messageTitle: "خطای در اجرای آزمون",
+            messageTitle: "خطا در اجرای آزمون",
+            messageDescription: "وارد کردن پارامتر آی دی الزامی است."
+        });
+    }
+});
+
+app.get("/print", function(req, res){
+    if(req.query.id){
+        Exam.findOne({exam_id: req.query.id}, function(err, foundExam){
+            if(foundExam){
+                if(foundExam.exam_active){
+                    res.render("print", {
+                        foundExam: foundExam
+                    });
+                }else{
+                    res.render("msg", {
+                        adminLoggedIn: req.isAuthenticated(),
+                        messageTitle: "خطا در نمایش آزمون",
+                        messageDescription: "این آزمون غیرفعال شده و در حال حاضر قابل چاپ نیست."
+                    });
+                }
+            }else{
+                res.render("msg", {
+                    adminLoggedIn: req.isAuthenticated(),
+                    messageTitle: "خطا در نمایش آزمون",
+                    messageDescription: "آزمونی با این آی دی وجود ندارد."
+                });
+            }
+        });
+    }else{
+        res.render("msg", {
+            adminLoggedIn: req.isAuthenticated(),
+            messageTitle: "خطا در نمایش آزمون",
             messageDescription: "وارد کردن پارامتر آی دی الزامی است."
         });
     }

@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>سامانه آزمون آنلاین TEFL | چاپ آزمون <%= foundExam.exam_title %></title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/bootstrap.rtl.min.css">
+    <link rel="shortcut icon" href="img/favicon.svg" type="image/svg+xml">
+    <script src="js/jquery-3.6.3.min.js"></script>
+</head>
+<body>
+
+<style>
+    table {
+        width: 100%;
+    }
+    th, td {
+        padding: 8px;
+    }
+    .image-col {
+        width: 30%;
+    }
+    .answer-col {
+        width: 4%;
+    }
+</style>
+
+<section class="container-fluid">
+    <div class="container">
+
+        <h1 class="pt-3 pb-3">آزمون <%= foundExam.exam_title %></h1>
+
+        <table class="table-bordered mb-4">
+            <thead>
+                <tr>
+                    <th>تعداد سوالات</th>
+                    <th>مهلت پاسخگویی</th>
+                    <th>توضیحات</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><%= foundExam.exam_questions.length %></td>
+                    <td><%= foundExam.exam_time %> دقیقه</td>
+                    <td><%= foundExam.exam_description %></td>
+                </tr>
+            </tbody>
+        </table>
+
+        <% for(let i=0; i<foundExam.exam_questions.length; i++){ %>
+
+            <h2 class="pt-4">سوال <%= i + 1 %></h2>
+            <table class="table-bordered mt-4 mb-4">
+                <thead>
+                    <% if(foundExam.exam_questions[i].exam_question_title){ %>
+                        <tr>
+                            <th class="ltr-in-rtl" colspan="3"><%= foundExam.exam_questions[i].exam_question_title %></th>
+                        </tr>
+                    <% } %>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="answer-col">1</td>
+                        <td class="ltr-in-rtl"><%= foundExam.exam_questions[i].exam_question_answer1 %></td>
+                        <% if(foundExam.exam_questions[i].exam_question_pic){ %>
+                            <td class="image-col" rowspan="4">
+                                <div class="image-container">
+                                    <img src="pics/<%= foundExam.exam_questions[i].exam_question_pic %>">
+                                </div>
+                            </td>
+                        <% } %>
+                    </tr>
+                    <tr>
+                        <td class="answer-col">2</td>
+                        <td class="ltr-in-rtl"><%= foundExam.exam_questions[i].exam_question_answer2 %></td>
+                    </tr>
+                    <tr>
+                        <td class="answer-col">3</td>
+                        <td class="ltr-in-rtl"><%= foundExam.exam_questions[i].exam_question_answer3 %></td>
+                    </tr>
+                    <tr>
+                        <td class="answer-col">4</td>
+                        <td class="ltr-in-rtl"><%= foundExam.exam_questions[i].exam_question_answer4 %></td>
+                    </tr>
+                </tbody>
+            </table>
+
+        <% } %>
+    </div>
+</section>
+
+<footer class="container-fluid">
+    <div class="container">
+        <p class="en-digits">
+            Powered by
+            <a href="https://sajadidev.ir" target="_blank">SajadiDev</a>
+            - 2023
+        </p>
+    </div>
+</footer>
+</body>
+</html>
